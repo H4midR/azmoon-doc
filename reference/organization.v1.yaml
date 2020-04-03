@@ -6,15 +6,89 @@ servers:
   - url: 'http://localhost:9090'
     description: localhost
 paths:
-  /org:
+  '/org/{parent}':
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
       operationId: get-org
       description: گرفتن لیست اصلی سازمان - در صورتی که کاربر مدیر باشد ، روت همه ی سازمان ها و در صورتی که کاربر ساده باشد ، تمام سازمان هایی که به آنها دسترسی دارد
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+        description: ''
+    post:
+      summary: ''
+      operationId: post-org
+      responses:
+        '200':
+          description: OK
+      description: ایجاد سازمان جدید
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples: {}
+        description: ''
+    parameters:
+      - schema:
+          type: string
+        name: parent
+        in: path
+        required: true
+        description: |-
+          شناسه یکتای سازمان پدر - درصورتی که سازمان اصلی است خالی باشد
+          فقط مدیر میتواند سازمان اصلی ایجاد کند
+    put:
+      summary: ''
+      operationId: put-org-parent
+      responses:
+        '200':
+          description: OK
+      description: ویرایش یک سازمان
 components:
-  schemas: {}
+  schemas:
+    Organization:
+      title: Organization
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        '':
+          type: string
+    Response:
+      title: Response
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: integer
+        Data:
+          type: object
+        Message:
+          type: string
+        Messages:
+          type: array
+          items: {}
+      description: فرمت کلی تمامی پاسخ های سرور
   securitySchemes:
     X-User:
       name: '0xef7d9'

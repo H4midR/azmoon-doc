@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: organization
+  version: '1.0'
+servers:
+  - url: 'http://localhost:9090'
+    description: localhost
+paths:
+  /org:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-org
+      description: گرفتن لیست اصلی سازمان - در صورتی که کاربر مدیر باشد ، روت همه ی سازمان ها و در صورتی که کاربر ساده باشد ، تمام سازمان هایی که به آنها دسترسی دارد
+components:
+  schemas: {}
+  securitySchemes:
+    X-User:
+      name: '0xef7d9'
+      type: apiKey
+      in: header
+    Authorization-Token:
+      name: 520378a2575e7443e3c56fd7930411aad8a0e47f6b70363fa3bc882eac5352c6
+      type: apiKey
+      in: header
